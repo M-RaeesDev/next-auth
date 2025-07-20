@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { SignInButton, SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
@@ -17,7 +18,7 @@ export default function Header() {
 
         {/* navigation */}
         <nav>
-          <ul className="flex gap-4">
+          <ul className="flex gap-4 items-center">
             <li>
               <Link
                 href="/"
@@ -26,6 +27,7 @@ export default function Header() {
                 Home
               </Link>
             </li>
+
             <li>
               <Link
                 href="/about"
@@ -34,14 +36,22 @@ export default function Header() {
                 About
               </Link>
             </li>
-            <li>
-              <Link
-                href="/signin"
-                className="px-4 py-2 rounded-full font-semibold transition duration-300 ease-in-out text-white bg-gradient-to-r from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 shadow-md hover:shadow-lg"
-              >
-                Signin
-              </Link>
-            </li>
+
+            <SignedIn>
+              <li>
+                <UserButton />
+              </li>
+            </SignedIn>
+
+            <SignedOut>
+              <li>
+                <SignInButton>
+                  <button className="px-4 py-2 rounded-full font-semibold transition duration-300 ease-in-out text-white bg-gradient-to-r from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 shadow-md hover:shadow-lg">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </li>
+            </SignedOut>
           </ul>
         </nav>
       </div>
