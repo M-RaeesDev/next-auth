@@ -13,20 +13,20 @@ export default function About() {
           <span className="font-semibold text-indigo-600 dark:text-indigo-400">
             Clerk Authentication
           </span>
-          , a powerful and secure solution that enables seamless sign-in,
+          A powerful and secure solution that enables seamless sign-in,
           sign-up, and user management. Clerk ensures that authentication is not
           only fast and efficient but also modern and developer-friendly.
         </p>
 
         <p className="text-md text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-          Designed using <strong>Next.js</strong> and{" "}
+          Designed using <strong>Next Js</strong> and{" "}
           <strong>Tailwind CSS</strong>, the app offers a smooth and responsive
           user experience across all devices. It is lightweight, attractive, and
           built with scalability and performance in mind.
         </p>
 
         <p className="text-md text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-          Whether you're a user looking for quick access or a developer aiming
+          Whether you are a user looking for quick access or a developer aiming
           for clean architecture, this platform brings together the best of
           modern web technologies.
         </p>
