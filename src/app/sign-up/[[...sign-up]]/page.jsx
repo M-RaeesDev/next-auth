@@ -12,7 +12,7 @@ export default function Page() {
           <Image
             src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7875.jpg"
             alt="Sign Up Illustration"
-            width="400"
+            width="300"
             height="300"
             className="object-cover rounded-xl"
           />

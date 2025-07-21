@@ -17,8 +17,8 @@ export default function Page() {
           <Image
             src="https://img.freepik.com/free-vector/modern-welcome-composition-with-gradient-style_23-2147900387.jpg?t=st=1752994687~exp=1752998287~hmac=a67e00210a67682c4258e50411e3673105a1334f0d9282b3736cabdd87b4b67d&w=1480"
             alt="Welcome"
-            width="400"
-            height="400"
+            width="300"
+            height="300"
             className="object-cover rounded-xl"
           />
         </div>
