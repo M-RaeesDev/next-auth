@@ -1,4 +1,5 @@
 import { SignIn } from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function Page() {
   return (
@@ -13,7 +14,7 @@ export default function Page() {
           <p className="text-md mb-6">
             Please sign in to continue and manage your content seamlessly.
           </p>
-          <img
+          <Image
             src="https://img.freepik.com/free-vector/modern-welcome-composition-with-gradient-style_23-2147900387.jpg?t=st=1752994687~exp=1752998287~hmac=a67e00210a67682c4258e50411e3673105a1334f0d9282b3736cabdd87b4b67d&w=1480"
             alt="Welcome"
             width="400"

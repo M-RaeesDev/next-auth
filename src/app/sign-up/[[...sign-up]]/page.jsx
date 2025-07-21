@@ -1,4 +1,5 @@
 import { SignUp } from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function Page() {
   return (
@@ -8,7 +9,7 @@ export default function Page() {
         <div className="hidden md:flex flex-col justify-center items-start p-8 md:w-1/2 bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-white">
           <h1 className="text-4xl font-bold mb-3">Create Your Account 👋</h1>
           <p className="text-md mb-6">Join us and unlock amazing features.</p>
-          <img
+          <Image
             src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7875.jpg"
             alt="Sign Up Illustration"
             width="400"
