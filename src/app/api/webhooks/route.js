@@ -1,52 +1,42 @@
-import { createOrUpdateUser, deleteUser } from "@/lib/actions/user.js";
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
+// app/api/webhooks/route.js
+import { webhookHandler } from '@clerk/nextjs/server';
+import { createOrUpdateUser, deleteUser } from '@/lib/actions/user.js';
 
-export async function POST(req) {
-  try {
-    const secret = process.env.CLERK_WEBHOOK_SECRET_KEY;
-    const evt = await verifyWebhook(req, {secret});
+export const POST = webhookHandler(async (payload) => {
+  const { id, type } = payload;
 
-    // Do something with payload
-    // For this guide, log payload to console
-    const { id } = evt?.data;
-    const eventType = evt?.type;
-    console.log(
-      `Received webhook with ID ${id} and event type of ${eventType}`
-    );
-    console.log("Webhook payload:", evt?.data);
+  console.log(`Received webhook with ID ${id} and type ${type}`);
+  console.log("Payload: ", payload);
 
-    if (eventType === "user.created" || eventType === "user.updated") {
-      const {id, first_name, last_name, image_url, email_adresses, username} = evt?.data;
-      try {
-        await createOrUpdateUser(
-          id,
-          first_name,
-          last_name,
-          image_url,
-          email_adresses,
-          username
-        );
-        return new Response('User is Created or Updated :', {status:200,});
-      } catch (error) {
-        console.log("Error Creating and Updating User: ", error);
-        return new Response ('Error Occured', {status:400,});
-        
-      }
+  if (type === "user.created" || type === "user.updated") {
+    const {
+      id,
+      first_name,
+      last_name,
+      image_url,
+      email_addresses,
+      username,
+    } = payload;
+
+    try {
+      await createOrUpdateUser(
+        id,
+        first_name,
+        last_name,
+        image_url,
+        email_addresses,
+        username
+      );
+    } catch (error) {
+      console.error("User create/update error:", error);
     }
-    if (eventType === "user.deleted") {
-      const {id} = evt?.data;
-      try {
-        await deleteUser(id);
-        return new Response("User Deleted: ", {status: 200,})
-      } catch (error) {
-        console.log("Error Delete User", error);
-        return new Response('Error Occured', {status: 400,})
-      }
-    }
-
-    return new Response("Webhook received", { status: 200 });
-  } catch (err) {
-    console.error("Error verifying webhook:", err);
-    return new Response("Error verifying webhook", { status: 400 });
   }
-}
+
+  if (type === "user.deleted") {
+    try {
+      await deleteUser(id);
+    } catch (error) {
+      console.error("User delete error:", error);
+    }
+  }
+});
