@@ -1,4 +1,4 @@
-import { createOrUpdateUser, deleteUser } from "@/lib/actions/user";
+import { createOrUpdateUser, deleteUser } from "@/lib/actions/user.js";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 
 export async function POST(req) {

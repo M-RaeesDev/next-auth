@@ -1,5 +1,6 @@
-import User from "../models/user.model";
-import { connect } from "../mongodb/mongoose";
+import { connect } from "../mongodb/mongoose.ja";
+import User from "../models/user.model.js";
+
 
 export const createOrUpdateUser = async (
   id,
@@ -16,7 +17,7 @@ export const createOrUpdateUser = async (
       { clerkId: id },
       {
         $set: {
-          firstName: first_nanme,
+          firstName: first_name,
           lastName: last_name,
           avatar: image_url,
           email: email_adresses[0].email,
