@@ -1,59 +1,52 @@
+import { createOrUpdateUser, deleteUser } from "@/lib/actions/user.js";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { createOrUpdateUser, deleteUser } from "@/lib/actions/user";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).send("Method Not Allowed");
-  }
-
+export async function POST(req) {
   try {
     const secret = process.env.CLERK_WEBHOOK_SECRET_KEY;
-    const event = await verifyWebhook(req, { secret });
+    const evt = await verifyWebhook(req, {secret});
 
-    const { id, type } = event;
+    // Do something with payload
+    // For this guide, log payload to console
+    const { id } = evt?.data;
+    const eventType = evt?.type;
+    console.log(
+      `Received webhook with ID ${id} and event type of ${eventType}`
+    );
+    console.log("Webhook payload:", evt?.data);
 
-    console.log(`Received webhook with ID ${id} and type ${type}`);
-    console.log("Webhook payload:", event);
-
-    if (type === "user.created" || type === "user.updated") {
-      const {
-        id,
-        first_name,
-        last_name,
-        image_url,
-        email_addresses,
-        username,
-      } = event;
-
+    if (eventType === "user.created" || eventType === "user.updated") {
+      const {id, first_name, last_name, image_url, email_adresses, username} = evt?.data;
       try {
         await createOrUpdateUser(
           id,
           first_name,
           last_name,
           image_url,
-          email_addresses,
+          email_adresses,
           username
         );
-        return res.status(200).send("User Created/Updated");
+        return new Response('User is Created or Updated :', {status:200,});
       } catch (error) {
-        console.error("Error creating/updating user:", error);
-        return res.status(400).send("Error during user create/update");
+        console.log("Error Creating and Updating User: ", error);
+        return new Response ('Error Occured', {status:400,});
+        
       }
     }
-
-    if (type === "user.deleted") {
+    if (eventType === "user.deleted") {
+      const {id} = evt?.data;
       try {
         await deleteUser(id);
-        return res.status(200).send("User Deleted");
+        return new Response("User Deleted: ", {status: 200,})
       } catch (error) {
-        console.error("Error deleting user:", error);
-        return res.status(400).send("Error during user delete");
+        console.log("Error Delete User", error);
+        return new Response('Error Occured', {status: 400,})
       }
     }
 
-    return res.status(200).send("Webhook received");
+    return new Response("Webhook received", { status: 200 });
   } catch (err) {
-    console.error("Webhook verification failed:", err);
-    return res.status(400).send("Invalid webhook");
+    console.error("Error verifying webhook:", err);
+    return new Response("Error verifying webhook", { status: 400 });
   }
 }
