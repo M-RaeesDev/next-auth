@@ -1,10 +1,10 @@
-import { connect } from "../mongodb/mongoose.ja";
+import { connect } from "../mongodb/mongoose.js";
 import User from "../models/user.model.js";
 
 
 export const createOrUpdateUser = async (
   id,
-  first_nanme,
+  first_name,
   last_name,
   image_url,
   email_adresses,
