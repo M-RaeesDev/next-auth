@@ -13,7 +13,7 @@ export const connet = async ()=>{
     try {
         await mongoose.connect(process.env.MONGODB_URI,{
 
-            dbName:'naxt auth app',
+            dbName:'naxt-auth-app',
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
